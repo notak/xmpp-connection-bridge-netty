@@ -7,9 +7,11 @@ A few caveats:
 - The code is pretty hacked-together. It was a quick solution to a short-term problem. I've tried to comment it to explain what's going on, but that's about it
 - XMPP is increasingly a wasteland. It wasn't really cool for chat when chat was all on MSN and AIM. It briefly got some attention when Google and Facebook made it an option, and then died off again. Google and Slack are dumping support this year. For non-chat applications it makes more sense to just talk direct to your service via websockets and probably always has.
 
-If you want to run the code you'll need to go into the base directory and run `ant jar` to build it, and then:
-
-  `java -cp libs/* xmpp.Bridge <YOUR SERVER NAME>`
+If you want to run the code you'll need to:
+- download netty 4 and log4j 2 and put them in libs directory
+- change the javac classpath in build.xml to contain your downloaded libs 
+- go into the base directory and run `ant jar` to build it
+- run `java -cp libs/* xmpp.Bridge <YOUR SERVER NAME>`
 
 If you want to deploy it to a real server and run it as a service (you shouldn't, obviously):
 - Change libs/xmpp-websocket-proxy.service to the name of the server you want to proxy
