@@ -1,0 +1,7 @@
+useradd -r -s /sbin/nologin xmpp-bridge
+chown -R xmpp-bridge .
+cp xmpp-websocket-proxy.service \
+   /etc/systemd/system
+systemctl daemon-reload
+systemctl enable xmpp-websocket-proxy.service
+service xmpp-websocket-proxy restart

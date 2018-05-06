@@ -1,0 +1,38 @@
+<project>
+    <target name="clean">
+        <delete dir="target"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="target/classes"/>
+        <javac
+            includeantruntime="false"
+            srcdir="src" 
+            destdir="target/classes"
+            classpath="web-common-deps.jar"
+        />
+        <copy todir="target/classes" file="log4j2.xml"/>
+        <copy todir="target/classes" file="log4j2-console.xml"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        <jar destfile="libs/xmmp-connection-bridge.jar" basedir="target/classes"/>
+    </target>
+
+    <target name="do-deploy">
+        <property name="deploy-dir" value="/opt/fp"/>
+        <exec executable="rsync">
+            <arg value="-avz"/>
+            <arg value="-t"/>
+            <arg value="libs"/>
+            <arg value="${deploy-server}:${deploy-dir}"/>
+        </exec>
+    </target>
+
+    <target name="deploy" depends="jar">
+        <antcall target="do-deploy">
+            <param name="deploy-server" value="SERVER-NAME HERE"/>
+        </antcall>
+    </target>
+
+</project>

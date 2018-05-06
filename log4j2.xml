@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+ <Properties>
+    <Property name="appname">webserver</Property>
+  </Properties>
+  <Appenders>
+ 
+    <RollingFile
+        name="Error" 
+        filename="../logs/${sys:log-prefix}-error.log" 
+        filePattern="../logs/${sys:log-prefix}-error-%d{MM-dd-yyyy}.log.gz"
+    >
+      <filters>
+        <ThresholdFilter level="error"/>
+      </filters>
+      <PatternLayout pattern="%C{1}.%M %m %ex%n"/>
+      <TimeBasedTriggeringPolicy />
+    </RollingFile>
+
+    <RollingFile
+        name="All" 
+        filename="../logs/${sys:log-prefix}.log" 
+        filePattern="../logs/${sys:log-prefix}-log-%d{MM-dd-yyyy}.log.gz"
+    >
+   	 <PatternLayout pattern="%highlight{%d{HH:mm:ss.SSS} %-5level %logger{36}.%M() @%L - %msg%n}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=green, DEBUG=gray, TRACE=blue}"/>    
+      <TimeBasedTriggeringPolicy />
+    </RollingFile>
+  </Appenders>
+  <Loggers>
+    <Root level="trace">
+      <AppenderRef ref="All"/>
+      <AppenderRef ref="Error"/>
+    </Root>
+  </Loggers>
+</Configuration>

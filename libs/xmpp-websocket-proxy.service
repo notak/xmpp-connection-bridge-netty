@@ -1,0 +1,17 @@
+[Unit]
+Description=Bridge from Websocket to XMPP servers (that don't have websockets enabled for some reason)
+After=network.target
+
+[Service]
+WorkingDirectory=/opt/fp/libs
+SyslogIdentifier=xmpp-bridge
+ExecStart=/usr/bin/env java -Xmx60M -Dlog-prefix=xmpp-bridge -cp "*" xmpp.Bridge "SERVER NAME HERE"
+
+User=xmpp-bridge
+Type=simple
+Restart=always
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
+
